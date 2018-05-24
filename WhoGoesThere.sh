@@ -102,7 +102,7 @@ WhoGoesThere() { ### Asks for for identification and thanks them	###
 
 	if [[ $WhoGoesThereResult -eq 0 ]]; then
 		log "$ItIsI"
-		log "Houson, We've made contact"
+		log "Houston, We've made contact"
 	## Tell the user everything worked!
 		WhoGoesThere-Prompt-Success
 		jamf recon -endUsername "$ItIsI"

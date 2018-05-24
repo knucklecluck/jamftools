@@ -49,7 +49,7 @@ log "Setting up Variables..."
 #####
 # Read in Parameters
 #####
-DOMAIN="$4" # Their company's domain, eg company.com
+DOMAIN="$4" # Your org's domain, eg company.com
 
 #####
 # Paths to various utilities used for user interaction

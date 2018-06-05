@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Lets_Get_MS_Officed v1
+# Lets_Get_Officed v1.1
 # Created by Max Gerhardt on June 5th 2018
 #
 #	Purpose: 	This Script will check if Microsoft's AutoUpdate app supports CLI
@@ -112,4 +112,4 @@ Lets_Get_MS_Officed() { # Checks for Office and/or CLI support, and installs ava
 # Main Script Runtime
 ###############################################################################
 
-Lets_Get_MS_Officed
+Lets_Get_Officed

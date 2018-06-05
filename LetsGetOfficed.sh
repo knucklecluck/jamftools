@@ -95,7 +95,7 @@ Install-MS-Updates() { #Runs available automatic updates for Microsoft Offce
 	"$MS_UPDATE" --install
 }
 
-Lets_Get_MS_Officed() { # Checks for Office and/or CLI support, and installs avalable updates
+Lets_Get_Officed() { # Checks for Office and/or CLI support, and installs avalable updates
 	
 	#Checks if office is installed, and either installs or moves on
 	Install-MS-Office

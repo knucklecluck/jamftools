@@ -49,6 +49,7 @@ log "Setting up Variables..."
 # Paths to various utilities used for user interaction
 #####
 MAUPath="/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app"
+APP_PATH="/Applications/Microsoft Word.app"
 MAU_URL="https://go.microsoft.com/fwlink/?linkid=830196"
 MSO_URL="https://go.microsoft.com/fwlink/?linkid=525133"
 MSO_PATH="/tmp/MSO.pkg"
@@ -66,7 +67,7 @@ MS_UPDATE="/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.ap
 ###############################################################################
 
 Install-MS-Office () { #Checks if Microsoft Office is installed, and installs it if not
-if [[ -e "$MAUPath" ]]; then
+if [[ -e "$APP_PATH" ]]; then
 	log "Microsoft Office is Present"
 else
 	curl --retry 3 -L "$MSO_URL" -o "$MSO_PATH"

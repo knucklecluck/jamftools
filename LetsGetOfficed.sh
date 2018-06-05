@@ -59,7 +59,7 @@ MS_UPDATE="/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.ap
 # Variable commands with useful outputs
 #####
 
-MAU-Version=$(mdls $MAUPath -name kMDItemVersion | grep -Eo '[0-9].[0-99]')
+#MAU-Version=$(mdls $MAUPath -name kMDItemVersion | grep -Eo '[0-9].[0-99]')
 
 ###############################################################################
 # Define Functions
@@ -95,9 +95,21 @@ Install-MS-Updates() { #Runs available automatic updates for Microsoft Offce
 	"$MS_UPDATE" --install
 }
 
+Lets_Get_MS_Officed() { # Checks for Office and/or CLI support, and installs avalable updates
+	
+	#Checks if office is installed, and either installs or moves on
+	Install-MS-Office
+
+	#Checks for MAU compatibility, and updates MAU if CLI is not supported
+	MAU-CLI-Check
+
+	#Uses CLI to check for available MSOffice updates
+	Install-MS-Updates
+
+}
+
 ###############################################################################
 # Main Script Runtime
 ###############################################################################
 
-MAU-CLI-Check
-Install-MS-Updates
+Lets_Get_MS_Officed

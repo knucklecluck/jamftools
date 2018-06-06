@@ -1,6 +1,6 @@
 # jamftools
 
-These are a random set of scripts and tools for the Jamf environments, many of which rely on Mark Stratman's CocoaDialog 3 or other utilities where specified. 
+These are a random set of scripts and tools for the Jamf environments, some of which rely on Mark Stratman's CocoaDialog 3 or other utilities where specified. 
 
 About CocoaDialog 3: https://www.jamf.com/jamf-nation/third-party-products/223/cocoa-dialog?view=info
 

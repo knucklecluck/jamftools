@@ -60,7 +60,8 @@ MS_UPDATE="/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.ap
 # Variable commands with useful outputs
 #####
 
-#MAU-Version=$(mdls $MAUPath -name kMDItemVersion | grep -Eo '[0-9].[0-99]')
+# Optional method to identify MAU version number, and redirect that output to another Function
+# MAU-Version=$(mdls $MAUPath -name kMDItemVersion | grep -Eo '[0-9].[0-99]') 
 
 ###############################################################################
 # Define Functions
@@ -74,20 +75,17 @@ else
 	installer -store -pkg "$MSO_PATH" -target /
 	rm "$MSO_PATH"
 	log "Microsoft Office has been installed successfully"
+	exit
 fi
-}
-
-MAU-Update() { #Installs Latest Version of Microsoft's AutoUpdater with CLI support
-	curl --retry 3 -L "$MAU_URL" -o "$PKG_PATH"
-	installer -store -pkg "$PKG_PATH" -target /
-	rm "$PKG_PATH"
 }
 
 MAU-CLI-Check() { #Checks for installed MAU version, and if it is under 3.18, it installs the latest
 if [[ -e "$MS_UPDATE" ]]; then
 	log "MAU supports CLI"
 else
-	MAU-Update
+	curl --retry 3 -L "$MAU_URL" -o "$PKG_PATH"
+	installer -store -pkg "$PKG_PATH" -target /
+	rm "$PKG_PATH"
 	log "MAU has been updated to support CLI"
 fi
 }
@@ -96,21 +94,10 @@ Install-MS-Updates() { #Runs available automatic updates for Microsoft Offce
 	"$MS_UPDATE" --install
 }
 
-Lets_Get_Officed() { # Checks for Office and/or CLI support, and installs avalable updates
-	
-	#Checks if office is installed, and either installs or moves on
-	Install-MS-Office
-
-	#Checks for MAU compatibility, and updates MAU if CLI is not supported
-	MAU-CLI-Check
-
-	#Uses CLI to check for available MSOffice updates
-	Install-MS-Updates
-
-}
-
 ###############################################################################
 # Main Script Runtime
 ###############################################################################
 
-Lets_Get_Officed
+Install-MS-Office
+MAU-CLI-Check
+Install-MS-Updates

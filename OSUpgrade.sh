@@ -29,6 +29,7 @@
 #   1: No installer Present - Should not be within scope, and needs to be pushed via VPP
 #   2: Insufficient free space to run installation
 #   3: Running on battery with insufficient charge percentage. Opening macOS Installer app instead
+#   4: Helpertool Crashed... removing installer and running recon to redownload app from VPP
 #
 ###############################################################################
 #   BootStrap Logging and Basic Requirements
@@ -101,7 +102,6 @@ StartInstall ()
 killall "InstallAssistant"
 sleep 5
 /Applications/Install\ macOS\ High\ Sierra.app/Contents/Resources/startosinstall --applicationpath /Applications/Install\ macOS\ High\ Sierra.app --agreetolicense  --nointeraction
-exit 0
 }
 
 StartInstallGUI ()
@@ -111,6 +111,19 @@ sleep 5
 /Applications/Install\ macOS\ High\ Sierra.app/Contents/MacOS/InstallAssistant
 exit 3
 }
+
+HelperToolCheck ()
+{
+if [[ $? -eq 255 ]]; then
+    rm -Rf "/Applications/Install macOS High Sierra.app"
+    jamf recon
+    exit 4
+else
+    log "Installation successful"
+    exit 0
+    fi    
+}
+
 ###############################################################################
 # Main Runtime
 ###############################################################################
@@ -131,12 +144,14 @@ fi
 if [ "$PluggedInYN" = "AC Power" ]; then
     log "The computer is plugged into power. Lets start the installation"
     StartInstall
+    HelperToolCheck
 
 else
 ### do we have enough power? ### 
     if [ $BatteryPercentage -ge 50 ]; then
     log "laptop over 50% power. Lets start the installation"    
     StartInstall
+    HelperToolCheck
 
     else
         "$CDPath" ok-msgbox --title 'Low on Battery Power' \

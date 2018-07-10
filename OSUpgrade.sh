@@ -30,6 +30,7 @@
 #   2: Insufficient free space to run installation
 #   3: Running on battery with insufficient charge percentage. Opening macOS Installer app instead
 #   4: Helpertool Crashed... removing installer and running recon to redownload app from VPP
+#   5: Startup Disk could not be verified
 #
 ###############################################################################
 #   BootStrap Logging and Basic Requirements
@@ -115,6 +116,7 @@ exit 3
 HelperToolCheck ()
 {
 if [[ $? -eq 255 ]]; then
+    log "exited with status 255, removing the installer and running recon"
     rm -Rf "/Applications/Install macOS High Sierra.app"
     jamf recon
     exit 4
@@ -127,6 +129,22 @@ else
 ###############################################################################
 # Main Runtime
 ###############################################################################
+
+#   Can your startup disk be verified?  #
+diskutil verifyVolume /
+if [[ $? -eq 0 ]]; then
+    log "Starup Disk verified"
+else
+    "$CDPath" msgbox --title 'Startup Disk Error' \
+        --text 'There is something wrong with Macintosh HD' \
+        --informative-text "When preparing to run a required update, an error was encountered.
+
+Please email $ITemail for assistance" \
+        --button1 " OK " --float --icon stop
+    log "Startup Disk could not be verified. Human prompted to request assistance. Installation aborted."
+    exit 5
+fi
+
 
 #   Do you have less that 10GB of space?  # 
 if [ $FreeSpace -lt 10 ]; then

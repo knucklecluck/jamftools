@@ -3,18 +3,18 @@
 # OSUpgrade.sh
 # Created by Max Gerhardt on July 5th 2018
 #
-#   Purpose:    Designed for in-place upgrades, this script checks for Free space, 
-#               presence of external power, or whether there is over 50% of battery 
+#   Purpose:    Designed for in-place upgrades, this script checks for Free space,
+#               presence of external power, or whether there is over 50% of battery
 #               charge left. The script uses "CocoaDialog" to interact with users in
 #               the following ways:
 #                   1)  If there is insufficient free space, the end user is prompted
 #                       to email your internal support address via Argument 4, and then
 #                       exits.
-#                   2)  If there is below 50% battery charge and it is not connected to 
-#                       power, then it prompts the end user to connect to power and 
+#                   2)  If there is below 50% battery charge and it is not connected to
+#                       power, then it prompts the end user to connect to power and
 #                       launches the macOS Installer app with the GUI (which requires
 #                       power to be connected to run)
-#               If power is connected and the other checks pass, then it runs the installer 
+#               If power is connected and the other checks pass, then it runs the installer
 #               silently and reboots as is needed.
 #
 #               Use Jamf's built in Deferral mechanism to prompt end users for saving their
@@ -116,14 +116,15 @@ exit 3
 HelperToolCheck ()
 {
 if [[ $? -eq 255 ]]; then
-    log "exited with status 255, removing the installer and running recon"
+    log "exited with status 255, removing the installer, clearing softwareupdate catelog, and running recon"
     rm -Rf "/Applications/Install macOS High Sierra.app"
+    softwareupdate --clear-catalog
     jamf recon
     exit 4
 else
     log "Installation successful"
     exit 0
-    fi    
+    fi
 }
 
 ###############################################################################
@@ -146,11 +147,11 @@ Please email $ITemail for assistance" \
 fi
 
 
-#   Do you have less that 10GB of space?  # 
+#   Do you have less that 10GB of space?  #
 if [ $FreeSpace -lt 10 ]; then
     "$CDPath" msgbox --title 'Low on free space' \
         --text 'Your computer has less than 10GB of free storage.' \
-        --informative-text "You have only $FreeSpace GB of space free. MacOS High Sierra requires at least 10 GB of free space available. 
+        --informative-text "You have only $FreeSpace GB of space free. MacOS High Sierra requires at least 10 GB of free space available.
 
 If you need help with freeing up space, please email $ITemail" \
         --button1 " OK " --float --icon stop
@@ -158,16 +159,16 @@ If you need help with freeing up space, please email $ITemail" \
     exit 2
 fi
 
-### are we plugged in? ### 
+### are we plugged in? ###
 if [ "$PluggedInYN" = "AC Power" ]; then
     log "The computer is plugged into power. Lets start the installation"
     StartInstall
     HelperToolCheck
 
 else
-### do we have enough power? ### 
+### do we have enough power? ###
     if [ $BatteryPercentage -ge 50 ]; then
-    log "laptop over 50% power. Lets start the installation"    
+    log "laptop over 50% power. Lets start the installation"
     StartInstall
     HelperToolCheck
 
@@ -176,7 +177,7 @@ else
         --text 'Please plug your computer into power before proceeding' \
         --informative-text "Please plug your laptop in while installing. You only have $BatteryPercentage% power left which may not be enough to complete the installation.
 
-An unexpected loss of power during a macOS upgrade may cause data loss and require assistance from IT." \ 
+An unexpected loss of power during a macOS upgrade may cause data loss and require assistance from IT." \
         --button1 " OK " --float
         log "The computer needs power to avoid data loss. The human has been prompted to connect power"
         log "Launching Install macOS.app with GUI instead"

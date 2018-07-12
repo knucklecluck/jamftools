@@ -29,7 +29,7 @@
 #   1: No installer Present - Should not be within scope, and needs to be pushed via VPP
 #   2: Insufficient free space to run installation
 #   3: Running on battery with insufficient charge percentage. Opening macOS Installer app instead
-#   4: Helpertool Crashed... removing installer and running recon to redownload app from VPP
+#   4: Helpertool Crashed... removing installer, clearing update catelog, and running recon to redownload app from VPP
 #   5: Startup Disk could not be verified
 #
 ###############################################################################

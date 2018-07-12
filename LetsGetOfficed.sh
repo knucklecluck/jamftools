@@ -4,12 +4,14 @@
 # Created by Max Gerhardt on June 5th 2018
 #
 #	Purpose: 	This script is for both deploying Microsoft Office for macOS, as well as running 
-#				Office Suite updates using the CLI compatible version of MAU. If Office is not detected, 
-#				it will download and install the suite for you and then exit. If Office is already installed
-#				it will run updates via the "msupdate" command included in MAU 3.18 and later. If the installed
-#				version of MAU does not support CLI, it will update MAU to the latest CLI support version before 
-#				running the updates for the suite. All script based installations come from Microsoft's servers
-#				but if the URLs change, this script will break until new url's are added for both MAU and the full suite.
+#				Office Suite updates using the CLI compatible version of MAU. If Office is not 
+#				detected, it will download and install the suite for you and then exit. If Office 
+#				is already installed it will run updates via the "msupdate" command included in 
+#				MAU 3.18 and later. If the installed version of MAU does not support CLI, it will 
+#				update MAU to the latest CLI support version before running the updates for the 
+#				suite. All script based installations come from Microsoft's servers but if the 
+#				URLs ever change, this script will break until new url's are added added to this 
+#				script for both MAU and the full suite. This can be run while the apps are open.
 #
 ###	Exit Codes	###
 #	0 = Sucessful, or an otherwise non-blocking error. See the log for details.

@@ -57,7 +57,7 @@ APP_PATH="/Applications/Microsoft Word.app"
 MAU_URL="https://go.microsoft.com/fwlink/?linkid=830196"
 MSO_URL="https://go.microsoft.com/fwlink/?linkid=525133"
 MSO_PATH="/tmp/MSO.pkg"
-PKG_PATH="/tmp/MAU4.pkg"
+MAUPKG_PATH="/tmp/MAU4.pkg"
 MS_UPDATE="/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app/Contents/MacOS/msupdate"
 
 #####
@@ -87,9 +87,9 @@ MAU-CLI-Check() { #Checks for installed MAU version, and if it is under 3.18, it
 if [[ -e "$MS_UPDATE" ]]; then
 	log "MAU supports CLI"
 else
-	curl --retry 3 -L "$MAU_URL" -o "$PKG_PATH"
-	installer -store -pkg "$PKG_PATH" -target /
-	rm "$PKG_PATH"
+	curl --retry 3 -L "$MAU_URL" -o "$MAUPKG_PATH"
+	installer -store -pkg "$MAUPKG_PATH" -target /
+	rm "$MAUPKG_PATH"
 	log "MAU has been updated to support CLI"
 fi
 }

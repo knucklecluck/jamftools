@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Lets_Get_Officed v1.1
+# Lets_Get_Officed v1.2
 # Created by Max Gerhardt on June 5th 2018
 #
 #	Purpose: 	This script is for both deploying Microsoft Office for macOS, as well as running 

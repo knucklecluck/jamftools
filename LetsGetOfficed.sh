@@ -95,7 +95,13 @@ fi
 }
 
 Install-MS-Updates() { #Runs available automatic updates for Microsoft Offce
-	"$MS_UPDATE" --install
+	log "Running MAU"
+    "$MS_UPDATE" --install --apps MSau03
+	"$MS_UPDATE" --install --apps opim15
+    "$MS_UPDATE" --install --apps mswd15
+    "$MS_UPDATE" --install --apps xcel15
+    "$MS_UPDATE" --install --apps ppt315
+    log "MAU process complete. Update details logged at /Library/Logs/Microsoft/autoupdate.log"
 }
 
 ###############################################################################

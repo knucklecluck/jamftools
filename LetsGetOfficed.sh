@@ -23,7 +23,7 @@
 #	Arguments 1-3 are reserved by JAMF 
 #
 ###############################################################################
-#	BootStrap Logging and Basic Requirements
+#	Standard Requirements and Logging
 ###############################################################################
 # Check that we are running as sudo/root
 if [[ $(whoami) != "root" ]]; then
@@ -45,7 +45,7 @@ fi
 	echo "*** Logging Enabled Sucessflly ***"
 
 ###############################################################################
-# Setup Global Variables and Process Parameters
+# Global Variables and Process Parameters
 ###############################################################################
 log "Setting up Variables..."
 
@@ -83,7 +83,7 @@ else
 fi
 }
 
-MAU-CLI-Check() { #Checks for installed MAU version, and if it is under 3.18, it installs the latest
+MAU-CLI-Check () { #Checks for installed MAU version, and if it is under 3.18, it installs the latest
 if [[ -e "$MS_UPDATE" ]]; then
 	log "MAU supports CLI"
 else
@@ -94,7 +94,7 @@ else
 fi
 }
 
-Install-MS-Updates() { #Runs available automatic updates for Microsoft Offce
+Install-MS-Updates () { #Runs available automatic updates for Microsoft Offce
 	log "Running MAU"
     "$MS_UPDATE" --install --apps MSau03
 	"$MS_UPDATE" --install --apps opim15

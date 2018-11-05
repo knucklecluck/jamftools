@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # OSUpgrade.sh
 # Created by Max Gerhardt on July 5th 2018

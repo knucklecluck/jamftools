@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # EA SSID Presence.sh
 # Created by Max Gerhardt on September 18th, 2018
@@ -14,11 +14,11 @@
 # What SSID are we checking for?
 GuiltySSID="Guest SSID"
 
-# Identify Wifi's port ID
-WirelessPort=$(networksetup -listallhardwareports | awk '/Wi-Fi|AirPort/{getline; print $NF}')
+# Identify Wifi's Interface ID (eg en0 vs en1 etc)
+WiFiInterface=$(networksetup -listallhardwareports | awk '/Wi-Fi|AirPort/{getline; print $NF}')
 
 # Collect preferred wireless SSIDs and send back to the JSS
-ExistingNetworks=$(networksetup -listpreferredwirelessnetworks "$WirelessPort" | grep "$GuiltySSID" | cut -c 2-16)
+ExistingNetworks=$(networksetup -listpreferredwirelessnetworks "$WifiInterface" | grep "$GuiltySSID" | cut -c 2-16)
 
 if [ "$ExistingNetworks" = "$GuiltySSID" ]
 then

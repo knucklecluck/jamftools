@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 #   Script to identify "First Name" and Serial Number values,
-#   and then combine both to set as the computer's hostname
+#   and then combine both to set as the computer's name and hostname
 #
 #   eg. "John-C02XXXXXF6T6"
 #

@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Link to LDAP.sh
-# Created by Max Gerhardt
+# Created by Max Gerhardt on May 8th, 2019
 #
 #       This script uses the local user's full name to guess the end user's work 
 #       email address, and then uses that value to update the computer's "user

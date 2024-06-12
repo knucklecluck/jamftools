@@ -7,10 +7,10 @@
 #
 #   Needs to be run as root :)
 
-FName="$(id -P $(stat -f%Su /dev/console) | awk -F '[: ]' '{print $8}')-"
+FirstName="$(id -P $(stat -f%Su /dev/console) | awk -F '[: ]' '{print $8}')-"
 Serial=$(system_profiler SPHardwareDataType | sed '/^ *Serial Number (system):*/!d;s###;s/ //')
 
-scutil --set HostName "$FName$Serial"
-scutil --set LocalHostName "$FName$Serial"
-scutil --set ComputerName "$FName$Serial"
+scutil --set HostName "$FirstName$Serial"
+scutil --set LocalHostName "$FirstName$Serial"
+scutil --set ComputerName "$FirstName$Serial"
 dscacheutil -flushcache
